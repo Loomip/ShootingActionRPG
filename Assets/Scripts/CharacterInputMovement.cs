@@ -43,12 +43,14 @@ public class CharacterInputMovement : MonoBehaviour
 
     private void Move()
     {
-        // 착지 상태 애니메이션 파라미터 설정
-        animator.SetBool("IsGround", grounded);
-
         // 키입력 처리
-        h = joy.Horizontal;
-        v = joy.Vertical;
+        float hJoy = joy.Horizontal;
+        float vJoy = joy.Vertical;
+        float hKey = Input.GetAxis("Horizontal");
+        float vKey = Input.GetAxis("Vertical");
+
+        h = hJoy != 0 ? hJoy : hKey;
+        v = vJoy != 0 ? vJoy : vKey;
 
         // 이동 방향 벡터 설정
         movement = new Vector3(h, 0f, v).normalized;
