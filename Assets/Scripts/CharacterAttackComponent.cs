@@ -13,6 +13,9 @@ public class CharacterAttackComponent : MonoBehaviour
     // ÃÑ¾ËÀÌ ³ª°¥ À§Ä¡ 
     [SerializeField] private Transform bulletPos;
 
+    // ÃÑ½î´Â ÆÄÆ¼Å¬
+    [SerializeField] private ParticleSystem bulletEffect;
+
 
     private void Start()
     {
@@ -22,6 +25,12 @@ public class CharacterAttackComponent : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("Attack");
+        
+    }
+
+    public void BulletEffect()
+    {
+        bulletEffect.Play();
     }
 
     public void BulletShot()
