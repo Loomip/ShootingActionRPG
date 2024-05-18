@@ -20,7 +20,9 @@ public class EnemyDeathState : EnemyState
 
         //SoundManager.instance.PlaySfx(e_Sfx.EnemyDie);
 
-        animator.SetInteger("State", (int)state);
+        animator.SetInteger("state", (int)state);
+
+        animator.SetBool("isDeath", true);
     }
 
     public override void UpdateState()

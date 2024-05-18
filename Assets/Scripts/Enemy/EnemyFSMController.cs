@@ -38,6 +38,8 @@ public class EnemyFSMController : MonoBehaviour
 
         // 피격 상태로 전환
         TransactionToState(e_EnemyState.Hit);
+
+        Debug.Log("피격됨");
     }
 
     void Start()

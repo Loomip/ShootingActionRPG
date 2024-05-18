@@ -84,7 +84,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.06442081
+        value: 0.012950219
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -105,8 +105,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 0.5264706}
+      key0: {r: 1, g: 1, b: 1, a: 0.44705883}
+      key1: {r: 1, g: 1, b: 1, a: 0.21568628}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -157,7 +157,8 @@ GameObject:
   - component: {fileID: 1963670126700198129}
   - component: {fileID: 8749464098247040318}
   - component: {fileID: 8907778271038426420}
-  - component: {fileID: 2408778630633579660}
+  - component: {fileID: 4332986760711292457}
+  - component: {fileID: 8182620171352160945}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -175,7 +176,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7995583289014571179}
@@ -258,7 +259,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!136 &2408778630633579660
+--- !u!136 &4332986760711292457
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,7 +274,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -281,3 +282,17 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8182620171352160945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463680926061511997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576b67d9939664a49aa007d1d2a4d5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayerNames:
+  - Enemy

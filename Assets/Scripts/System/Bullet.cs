@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // 총알 공격력을 전달할 변수
+    private int atk;
+    public int Atk { get => atk; set => atk = value; }
+
+    // 타겟 레이어 판단 코드
+    [SerializeField] List<string> hitLayerNames;
+
+    // 총알이 사라질 시작 위치 저장
+    private Vector3 launchPosition;
+
+    // 총알이 사라져야될 최대 길이
+    private float maxTravelDistance = 50f;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        // hitLayerName에 해당하는 레이어에 있는 오브젝트가 있는지 확인
+        if ((other != null && hitLayerNames.Contains(LayerMask.LayerToName(other.gameObject.layer))) || other.tag == "Wall")
+        {
+            if (other.tag == "Enemy")
+            {
+                Debug.Log("피격됨");
+                other.GetComponent<EnemyFSMController>().Hit();
+            }
+
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        // 버그로 총알이 빗맞앗을 경우 총알이 계속 살아있기 때문에 일정 길이 이상으로 벌어지면
+        // 총알을 삭제 해줘야함
+        if (Vector3.Distance(transform.position, launchPosition) > maxTravelDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 }

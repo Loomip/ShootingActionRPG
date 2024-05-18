@@ -56,13 +56,24 @@ public class EnemyAttackState : EnemyAttackableState
     public override void EnterState(e_EnemyState state)
     {
         nav.isStopped = true;
+
         nav.speed = 0f;
 
-        animator.SetInteger("State", (int)state);
+        animator.SetInteger("state", (int)state);
     }
 
     public override void UpdateState()
     {
+        // 죽엇으면 리턴
+
+        // 공격 범위를 넘어가면
+        if (controller.GetPlayerDistance() > attackDistance)
+        {
+            // 달리기 상태로 전환
+            controller.TransactionToState(e_EnemyState.Run);
+            return;
+        }
+
         LookAtTarget();
     }
 

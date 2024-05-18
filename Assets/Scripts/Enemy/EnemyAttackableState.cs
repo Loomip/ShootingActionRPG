@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyAttackableState : EnemyState
 {
     [SerializeField] protected float attackDistance; // 플레이어 공격 가능 거리
-    [SerializeField] protected float detactDistance; // 플레이어 추적 가능 거리
 
     public override void EnterState(e_EnemyState state)
     {
