@@ -19,7 +19,6 @@ public class EnemyIdleState : EnemyAttackableState
     {
         // 죽엇으면 리턴
 
-
         // 플레이어 인식
         if (controller.GetPlayerDistance() > attackDistance)
         {

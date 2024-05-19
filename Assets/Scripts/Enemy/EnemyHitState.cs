@@ -17,6 +17,8 @@ public class EnemyHitState : EnemyAttackableState
 
         // 히트 모션 실행
         animator.SetInteger("state", (int)state);
+
+        Debug.Log("피격됨");
     }
 
     public override void UpdateState()

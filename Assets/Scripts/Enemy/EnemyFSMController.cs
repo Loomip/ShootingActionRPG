@@ -8,17 +8,21 @@ public class EnemyFSMController : MonoBehaviour
     [SerializeField] private EnemyState currentState;
 
     // 몬스터의 모든 상태 컴포넌트들
-    [SerializeField] private EnemyState[] monsterStatas;
+    [SerializeField] private EnemyState[] EnemyStatas;
 
     // 플레이어 참조
     protected GameObject player;
     public GameObject Player { get => player; set => player = value; }
 
+    [SerializeField] private GameObject[] headModels; // 머리 모델 배열
+    [SerializeField] private GameObject[] bodyModels; // 몸 모델 배열
+    [SerializeField] private GameObject[] WeaponModels; // 무기 모델 배열
+
     // 상태 전환 메소드
     public void TransactionToState(e_EnemyState state)
     {
         currentState?.ExitState(); // 이전 상태 정리
-        currentState = monsterStatas[(int)state]; // 상태 전환 처리
+        currentState = EnemyStatas[(int)state]; // 상태 전환 처리
         currentState.EnterState(state); // 세로운 상태 전이
     }
 
@@ -34,7 +38,7 @@ public class EnemyFSMController : MonoBehaviour
     public void Hit()
     {
         // 현재 상태가 이미 사망한 상태면 피격 처리하지 않음
-        if (currentState == monsterStatas[(int)e_EnemyState.Die]) return;
+        if (currentState == EnemyStatas[(int)e_EnemyState.Die]) return;
 
         // 피격 상태로 전환
         TransactionToState(e_EnemyState.Hit);
@@ -48,6 +52,25 @@ public class EnemyFSMController : MonoBehaviour
 
         // 대기 상태로 시작
         TransactionToState(e_EnemyState.Idle);
+
+        // 모든 머리와 몸 모델을 비활성화
+        foreach (var model in headModels) model.SetActive(false);
+        foreach (var model in bodyModels) model.SetActive(false);
+        foreach (var model in WeaponModels) model.SetActive(false);
+
+        // 머리와 몸 모델 중에서 랜덤하게 선택
+        GameObject headModel = headModels[Random.Range(0, headModels.Length)];
+        GameObject bodyModel = bodyModels[Random.Range(0, bodyModels.Length)];
+
+        // 선택한 머리와 몸 모델을 활성화
+        headModel.SetActive(true);
+        bodyModel.SetActive(true);
+
+        if (WeaponModels != null)
+        {
+            GameObject weaponModel = WeaponModels[Random.Range(0, WeaponModels.Length)];
+            weaponModel.SetActive(true);
+        }
     }
 
     private void Update()

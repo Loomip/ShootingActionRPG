@@ -81,4 +81,10 @@ public class EnemyAttackState : EnemyAttackableState
     {
 
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackTransfom.position, attackRadius);
+    }
 }
