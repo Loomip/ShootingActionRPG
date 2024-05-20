@@ -24,7 +24,6 @@ public class Bullet : MonoBehaviour
         {
             if (other.tag == "Enemy")
             {
-                Debug.Log("ÇÇ°ÝµÊ");
                 other.GetComponent<EnemyFSMController>().Hit();
             }
 

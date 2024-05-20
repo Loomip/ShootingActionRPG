@@ -42,8 +42,6 @@ public class EnemyFSMController : MonoBehaviour
 
         // 피격 상태로 전환
         TransactionToState(e_EnemyState.Hit);
-
-        Debug.Log("피격됨");
     }
 
     void Start()
@@ -56,7 +54,12 @@ public class EnemyFSMController : MonoBehaviour
         // 모든 머리와 몸 모델을 비활성화
         foreach (var model in headModels) model.SetActive(false);
         foreach (var model in bodyModels) model.SetActive(false);
-        foreach (var model in WeaponModels) model.SetActive(false);
+
+        if (WeaponModels != null)
+        {
+            foreach (var model in WeaponModels) 
+                model.SetActive(false);
+        }
 
         // 머리와 몸 모델 중에서 랜덤하게 선택
         GameObject headModel = headModels[Random.Range(0, headModels.Length)];
@@ -66,7 +69,7 @@ public class EnemyFSMController : MonoBehaviour
         headModel.SetActive(true);
         bodyModel.SetActive(true);
 
-        if (WeaponModels != null)
+        if (WeaponModels != null && WeaponModels.Length > 0)
         {
             GameObject weaponModel = WeaponModels[Random.Range(0, WeaponModels.Length)];
             weaponModel.SetActive(true);
