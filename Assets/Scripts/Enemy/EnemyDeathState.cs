@@ -28,6 +28,7 @@ public class EnemyDeathState : EnemyState
     public override void UpdateState()
     {
         time += Time.deltaTime;
+        levelManager.OnMonsterDefeated();
 
         // 사망 처리 지연시간이 지났다면
         if (time >= deathDelayTime)

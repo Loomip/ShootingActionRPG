@@ -8,10 +8,10 @@ public class EnemyIdleState : EnemyAttackableState
     public override void EnterState(e_EnemyState state)
     {
         // 네비게이션 에이전트 이동 정지
-        nav.isStopped = true;
+        //nav.isStopped = true;
 
         // 대기 애니메이션 재생
-        animator.SetInteger("state", (int)state);
+        //animator.SetInteger("state", (int)state);
     }
 
     // 대기 상태 기능 동작 처리 (상태 실행)

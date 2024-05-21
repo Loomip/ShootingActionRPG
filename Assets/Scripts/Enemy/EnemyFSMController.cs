@@ -18,6 +18,7 @@ public class EnemyFSMController : MonoBehaviour
     [SerializeField] private GameObject[] bodyModels; // 몸 모델 배열
     [SerializeField] private GameObject[] WeaponModels; // 무기 모델 배열
 
+
     // 상태 전환 메소드
     public void TransactionToState(e_EnemyState state)
     {
@@ -48,16 +49,13 @@ public class EnemyFSMController : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-        // 대기 상태로 시작
-        TransactionToState(e_EnemyState.Idle);
-
         // 모든 머리와 몸 모델을 비활성화
         foreach (var model in headModels) model.SetActive(false);
         foreach (var model in bodyModels) model.SetActive(false);
 
         if (WeaponModels != null)
         {
-            foreach (var model in WeaponModels) 
+            foreach (var model in WeaponModels)
                 model.SetActive(false);
         }
 
@@ -74,6 +72,9 @@ public class EnemyFSMController : MonoBehaviour
             GameObject weaponModel = WeaponModels[Random.Range(0, WeaponModels.Length)];
             weaponModel.SetActive(true);
         }
+
+        // 대기 상태로 시작
+        TransactionToState(e_EnemyState.Idle);
     }
 
     private void Update()
