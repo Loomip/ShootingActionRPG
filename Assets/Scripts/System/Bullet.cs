@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     private Vector3 launchPosition;
 
     // 총알이 사라져야될 최대 길이
-    private float maxTravelDistance = 50f;
+    [SerializeField] private float maxTravelDistance = 100f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.tag == "Enemy")
             {
+                other.GetComponent<EHeath>().Hit(Atk);
                 other.GetComponent<EnemyFSMController>().Hit();
             }
 

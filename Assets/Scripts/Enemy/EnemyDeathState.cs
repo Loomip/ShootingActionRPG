@@ -13,6 +13,8 @@ public class EnemyDeathState : EnemyState
 
     public override void EnterState(e_EnemyState state)
     {
+        collider.isTrigger = true;
+
         // 이동 중지
         nav.isStopped = true;
 
@@ -23,12 +25,13 @@ public class EnemyDeathState : EnemyState
         animator.SetInteger("state", (int)state);
 
         animator.SetBool("isDeath", true);
+
+        levelManager.OnMonsterDefeated();
     }
 
     public override void UpdateState()
     {
         time += Time.deltaTime;
-        levelManager.OnMonsterDefeated();
 
         // 사망 처리 지연시간이 지났다면
         if (time >= deathDelayTime)

@@ -29,10 +29,13 @@ public class CharacterInputMovement : MonoBehaviour
     private float h; // 좌우 이동 방향
     private float v; // 상하 이동 방향
 
+    private PHealth health;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        health = GetComponent<PHealth>();
     }
 
     private void Update()
@@ -43,6 +46,8 @@ public class CharacterInputMovement : MonoBehaviour
 
     private void Move()
     {
+        if (health.IsDie) return;
+
         // 키입력 처리
         float hJoy = joy.Horizontal;
         float vJoy = joy.Vertical;

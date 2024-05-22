@@ -19,7 +19,7 @@ public class EnemyHitState : EnemyAttackableState
         nav.isStopped = true;
 
         // 히트 이펙트 실행
-        //hitParticle.Play();
+        hitParticle.Play();
 
         // 히트 모션 실행
         animator.SetInteger("state", (int)state);
@@ -27,6 +27,11 @@ public class EnemyHitState : EnemyAttackableState
 
     public override void UpdateState()
     {
+        if(health.Hp <= 0)
+        {
+            controller.Death();
+        }
+
         if(!IsHit)
         {
             // 플레이어가 공격 가능 거리안에 들어왔다면

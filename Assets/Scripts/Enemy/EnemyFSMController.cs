@@ -45,6 +45,12 @@ public class EnemyFSMController : MonoBehaviour
         TransactionToState(e_EnemyState.Hit);
     }
 
+    public void Death()
+    {
+        // 죽음 상태로 전환
+        TransactionToState(e_EnemyState.Die);
+    }
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");

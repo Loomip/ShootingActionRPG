@@ -16,6 +16,9 @@ public class CharacterAttackComponent : MonoBehaviour
     // 총쏘는 파티클
     [SerializeField] private ParticleSystem bulletEffect;
 
+    // 무기 공격력 
+    [SerializeField] private int bulletAkt;
+
 
     private void Start()
     {
@@ -42,7 +45,10 @@ public class CharacterAttackComponent : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletPos.position + offset, bulletPos.rotation);
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
+        Bullet bullet1 = bullet.GetComponent<Bullet>();
 
         rigidbody.velocity = bulletPos.forward * 20f;
+
+        bullet1.Atk = bulletAkt;
     }
 }

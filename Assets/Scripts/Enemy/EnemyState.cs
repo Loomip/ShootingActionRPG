@@ -17,6 +17,10 @@ public abstract class EnemyState : MonoBehaviour
     // 레벨 매니저 컴포넌트
     protected LevelManager levelManager;
 
+    protected Health health;
+
+    protected Collider collider;
+
     // 몬스터 상태 관련 인터페이스(문법아님) 메소드 선언
 
     // 몬스터 상태 시작 (다른상태로 전이됨) 메소드
@@ -33,6 +37,8 @@ public abstract class EnemyState : MonoBehaviour
         animator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         controller = GetComponent<EnemyFSMController>();
+        health = GetComponent<Health>();
         levelManager = FindObjectOfType<LevelManager>();
+        collider = GetComponent<Collider>();
     }
 }
