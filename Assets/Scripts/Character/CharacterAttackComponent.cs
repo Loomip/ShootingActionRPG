@@ -9,6 +9,7 @@ public class CharacterAttackComponent : MonoBehaviour
 
     // ÃÑ¾Ë ÇÁ¸®Æé
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject strayBulletPrefab;
 
     // ÃÑ¾ËÀÌ ³ª°¥ À§Ä¡ 
     [SerializeField] private Transform bulletPos;
@@ -28,12 +29,28 @@ public class CharacterAttackComponent : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("Attack");
-        
+
     }
 
     public void BulletEffect()
     {
         bulletEffect.Play();
+    }
+
+    public void ChangeWeapon(string newWeaponType)
+    {
+        switch (newWeaponType)
+        {
+            case "Pistol":
+                animator.SetInteger("WeaponType", 0);
+                break;
+            case "Rifle":
+                animator.SetInteger("WeaponType", 1);
+                break;
+            case "Shotgun":
+                animator.SetInteger("WeaponType", 2);
+                break;
+        }
     }
 
     public void BulletShot()
@@ -43,6 +60,19 @@ public class CharacterAttackComponent : MonoBehaviour
 
         // ÃÑ¾ËÀ» »ý¼º
         GameObject bullet = Instantiate(bulletPrefab, bulletPos.position + offset, bulletPos.rotation);
+        bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
+        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
+        Bullet bullet1 = bullet.GetComponent<Bullet>();
+
+        rigidbody.velocity = bulletPos.forward * 20f;
+
+        bullet1.Atk = bulletAkt;
+    }
+
+    public void StrayBullet()
+    {
+        // ÃÑ¾ËÀ» »ý¼º
+        GameObject bullet = Instantiate(bulletPrefab, bulletPos.position, bulletPos.rotation);
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         Bullet bullet1 = bullet.GetComponent<Bullet>();
