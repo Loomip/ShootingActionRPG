@@ -20,6 +20,9 @@ public class CharacterAttackComponent : MonoBehaviour
     // 총쏘는 파티클
     [SerializeField] private ParticleSystem bulletEffect;
 
+    // 레이저 발포 효과 라인렌더러 컴포넌트
+    [SerializeField] private GameObject laserGunLinePrefab;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -78,6 +81,7 @@ public class CharacterAttackComponent : MonoBehaviour
         }
     }
 
+    // 기관총
     public void BulletShot()
     {
         // 랜덤한 오프셋을 생성
@@ -89,6 +93,7 @@ public class CharacterAttackComponent : MonoBehaviour
         rigidbody.velocity = bulletPos.forward * 20f;
     }
 
+    // 유탄발사기
     public void StrayBullet()
     {
         // 총알을 생성
@@ -96,5 +101,28 @@ public class CharacterAttackComponent : MonoBehaviour
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         rigidbody.velocity = bulletPos.forward * 20f;
+    }
+
+    // 레이저건
+    private void LaserGun()
+    {
+        // 라인 렌더러 프리팹 인스턴스화
+        GameObject laserLineInstance = Instantiate(laserGunLinePrefab);
+        LineRenderer laserLineRenderer = laserLineInstance.GetComponent<LineRenderer>();
+        Laser laser = laserLineInstance.GetComponent<Laser>();
+
+        // LineRenderer 설정
+        laserLineRenderer.positionCount = 2;
+        laserLineRenderer.SetPosition(0, bulletPos.position);
+
+        // 레이저 대미지 처리
+        Vector3 direction = bulletPos.forward;
+        laser.CheckForDamage(bulletPos.position, direction);
+
+        // 레이저 최대 거리까지 라인 설정
+        laserLineRenderer.SetPosition(1, bulletPos.position + (direction * laser.LaserGunRange));
+
+        // 일정 시간 후 라인 렌더러 삭제
+        Destroy(laserLineInstance, 0.1f);
     }
 }
