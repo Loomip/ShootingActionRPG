@@ -5,8 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     // 총알 공격력을 전달할 변수
-    private int atk;
-    public int Atk { get => atk; set => atk = value; }
+    [SerializeField] private int atk;
 
     // 타겟 레이어 판단 코드
     [SerializeField] List<string> hitLayerNames;
@@ -24,7 +23,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.tag == "Enemy")
             {
-                other.GetComponent<EHeath>().Hit(Atk);
+                other.GetComponent<EHeath>().Hit(atk);
                 other.GetComponent<EnemyFSMController>().Hit();
             }
 

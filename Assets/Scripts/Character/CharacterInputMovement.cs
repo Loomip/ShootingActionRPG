@@ -5,7 +5,8 @@ using UnityEngine;
 // 입력 이동 처리 컴포넌트
 public class CharacterInputMovement : MonoBehaviour
 {
-    [SerializeField] private VariableJoystick joy;
+    // 이동 조이스틱 컴포넌트
+    //[SerializeField] private VariableJoystick moveJoy;
 
     // 애니메이터 컴포넌트
     private Animator animator;
@@ -19,9 +20,11 @@ public class CharacterInputMovement : MonoBehaviour
     // 이동 벡터
     private Vector3 movement;
 
-    // 지면 착지 여부
-    public bool grounded = false;
-    float vSpeed = 0.0f; // 수직 이동 속도
+    // 캐릭터 회전을 위한 마우스 포인트 레이캐스트 바닥 충돌 레이어 마스크
+    [SerializeField] private LayerMask floorMask;
+
+    // 캐릭터 회전을 위한 마우스 포인트 레이캐스트 길이
+    [SerializeField] private float camRayLength;
 
     // 중력 수치
     [SerializeField] private float gravity;
@@ -31,7 +34,7 @@ public class CharacterInputMovement : MonoBehaviour
 
     private PHealth health;
 
-    void Awake()
+    void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
@@ -41,7 +44,7 @@ public class CharacterInputMovement : MonoBehaviour
     private void Update()
     {
         Move();
-        GravityDown();
+        Turning();
     }
 
     private void Move()
@@ -49,13 +52,16 @@ public class CharacterInputMovement : MonoBehaviour
         if (health.IsDie) return;
 
         // 키입력 처리
-        float hJoy = joy.Horizontal;
-        float vJoy = joy.Vertical;
-        float hKey = Input.GetAxis("Horizontal");
-        float vKey = Input.GetAxis("Vertical");
+        //float hJoy = moveJoy.Horizontal;
+        //float vJoy = moveJoy.Vertical;
+        //float hKey = Input.GetAxis("Horizontal");
+        //float vKey = Input.GetAxis("Vertical");
 
-        h = hJoy != 0 ? hJoy : hKey;
-        v = vJoy != 0 ? vJoy : vKey;
+        //h = hJoy != 0 ? hJoy : hKey;
+        //v = vJoy != 0 ? vJoy : vKey;
+
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
 
         // 이동 방향 벡터 설정
         movement = new Vector3(h, 0f, v).normalized;
@@ -63,33 +69,30 @@ public class CharacterInputMovement : MonoBehaviour
         // 이동 애니메이션 재생
         animator.SetFloat("Move", movement.magnitude);
 
-        // 캐릭터 회전 처리
-        transform.LookAt(transform.position + movement.normalized);
+        // 중력 적용
+        movement.y -= gravity * Time.deltaTime;
 
+        // 이동 처리
         characterController.Move(movement * (speed * Time.deltaTime));
     }
 
-    // 중력 컨트롤
-    private void GravityDown()
+
+    // 캐릭터 회전 처리 (마우스 포인터 방향으로 캐릭터가 바라보게)
+    private void Turning()
     {
-        // 수직 중력을 적용함 (-10)
-        vSpeed = vSpeed - gravity * Time.deltaTime;
+        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // 하강속도가 -10 보다 작아지면
-        if (vSpeed < -gravity)
-            vSpeed = -gravity; // 최대 하강속도를 -10으로 설정함
+        RaycastHit floorHit;
 
-        // 중력 수직 하강 속도가 적용된 수직 이동 벡터를 설정함
-        var verticalMove = new Vector3(0, vSpeed * Time.deltaTime, 0);
-
-        // 중력값이 적용된 수직 하강 이동을 처리함
-        var flag = characterController.Move(verticalMove);
-
-        // 캐릭터 컨트롤러가 지면에 닿았다면
-        if ((flag & CollisionFlags.Below) != 0)
+        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
-            // 수직 하강 속도를 0으로 설정함
-            vSpeed = 0;
+            Vector3 playerToMouseDirection = floorHit.point - transform.position;
+            playerToMouseDirection.y = 0f;
+
+            Quaternion rotation = Quaternion.LookRotation(playerToMouseDirection);
+
+            // 캐릭터 회전 처리
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
         }
     }
 }
