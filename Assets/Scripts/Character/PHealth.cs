@@ -50,5 +50,11 @@ public class PHealth : Health
             //ending.SetActive(true);
             IsDie = true;
         }
+    } 
+
+    public void Heal(int amount)
+    {
+        Hp += amount;
+        GameManager.instance.RefreshHp(gameObject.tag, this);
     }
 }

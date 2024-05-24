@@ -74,13 +74,13 @@ public class CharacterAttackComponent : MonoBehaviour
     {
         switch (newWeaponType)
         {
-            case "Pistol":
+            case "MachineGun":
                 animator.SetInteger("WeaponType", 0);
                 break;
-            case "Rifle":
+            case "GrenadeLauncher":
                 animator.SetInteger("WeaponType", 1);
                 break;
-            case "Shotgun":
+            case "LaserGun":
                 animator.SetInteger("WeaponType", 2);
                 break;
         }

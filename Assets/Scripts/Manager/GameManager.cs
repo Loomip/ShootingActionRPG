@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +8,14 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("라운드")]
     [SerializeField] private LevelManager levelManager; // 레벨 매니저 참조
+    [SerializeField] private TextMeshProUGUI txt_DeathCount;
     private int currentRound = 0; // 현재 라운드
 
     void StartNextRound()
     {
         currentRound++;
         levelManager.StartRound(currentRound); // 레벨 매니저에게 다음 라운드 시작을 알림
+        UpdateUI();
     }
 
     public void OnLevelCleared()
@@ -21,10 +24,18 @@ public class GameManager : Singleton<GameManager>
         Invoke("StartNextRound", 5.0f);
     }
 
+    // 데스 카운트 리프레쉬
+    public void UpdateUI()
+    {
+        int remainingMonsters = levelManager.MonstersToSpawn - levelManager.MonstersDefeated;
+        txt_DeathCount.text =  remainingMonsters + " / " + levelManager.MonstersToSpawn;
+    }
+
     //=================================================================================================================
 
     [Header("UI")]
     [SerializeField] private Slider playerHp;
+    
 
     // 생성된 각 몬스터의 체력바를 저장할 딕셔너리
     [SerializeField] private Dictionary<Health, Slider> enemyHealthBars = new Dictionary<Health, Slider>();

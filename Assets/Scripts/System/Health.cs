@@ -32,10 +32,4 @@ public abstract class Health : MonoBehaviour
     {
         Hp = maxHp; // 처음 체력을 최대 체력으로 설정
     }
-
-    public void Heal(int amount)
-    {
-        Hp += amount;
-        GameManager.instance.RefreshHp(gameObject.tag, this);
-    }
 }
