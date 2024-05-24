@@ -23,9 +23,12 @@ public class CharacterAttackComponent : MonoBehaviour
     // 레이저 발포 효과 라인렌더러 컴포넌트
     [SerializeField] private GameObject laserGunLinePrefab;
 
+    private PHealth health;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+        health = GetComponent<PHealth>();
     }
 
     private void Update()
@@ -35,6 +38,8 @@ public class CharacterAttackComponent : MonoBehaviour
 
     public void Attack()
     {
+        if (health.IsDie) return;
+
         //// 공격 조이스틱 입력 처리
         //float hAttackJoy = attackJoy.Horizontal;
         //float vAttackJoy = attackJoy.Vertical;

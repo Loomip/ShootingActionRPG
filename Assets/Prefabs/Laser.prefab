@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atk: 50
-  laserGunRange: 100
+  laserGunRange: 30
   laserGunshootableMask:
     serializedVersion: 2
     m_Bits: 64

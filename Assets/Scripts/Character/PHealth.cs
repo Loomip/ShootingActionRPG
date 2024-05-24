@@ -21,13 +21,27 @@ public class PHealth : Health
         animator = GetComponent<Animator>();
     }
 
+    protected IEnumerator IsHitCoroutine(int damage)
+    {
+        CanTakeDamage = false;
+
+        //// 대미지가 들어온 만큼 체력을 깍음
+        Hp -= damage;
+
+        // GameManager에서 체력 리프레쉬
+        GameManager.instance.RefreshHp(gameObject.tag, this);
+
+        yield return new WaitForSeconds(damageCooldown);
+
+        CanTakeDamage = true;
+    }
+
     public override void Hit(int damage)
     {
         if (Hp > 0 && CanTakeDamage)
         {
             // 대미지 효과
             StartCoroutine(IsHitCoroutine(damage));
-            StartCoroutine(DamagerCoolDoun());
             hitParticle.Play();
         }
         else

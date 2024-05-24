@@ -3842,8 +3842,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77a7b76faa779a4b879f925c8fbdeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  maxHp: 100
+  hp: 0
   damageCooldown: 0
+  healthBarPrefab: {fileID: 7091954315217879690, guid: 65382dfe98a28764ca477111aa9ce24e,
+    type: 3}
 --- !u!114 &5943100238834641203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3937,11 +3940,12 @@ MonoBehaviour:
   attackDistance: 2
   attackTransfom: {fileID: 2676644651640194831}
   attackRadius: 1
-  hitAngle: 1
+  hitAngle: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
   smoothValue: 5
+  atk: 20
 --- !u!114 &3323786681776880827
 MonoBehaviour:
   m_ObjectHideFlags: 0

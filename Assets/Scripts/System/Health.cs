@@ -4,15 +4,23 @@ using UnityEngine;
 
 public abstract class Health : MonoBehaviour
 {
-    // 체력을 담을 변수
+    // 최대 체력을 담을 변수
+    [SerializeField] private int maxHp;
+    public int MaxHp { get => maxHp; set => maxHp = value; }
+
+    // 현재 체력을 담을 변수
     [SerializeField] private int hp;
-    public int Hp { get => hp; set => hp = value; }
+    public int Hp
+    {
+        get => hp;
+        set
+        {
+            hp = Mathf.Clamp(value, 0, maxHp); // 체력이 0과 maxHp 사이의 값으로 유지되도록 설정
+        }
+    }
 
     // 데미지 쿨시간 
-    [SerializeField] private float damageCooldown;
-
-    // 히트 되면 바뀔 몸 메터리얼
-    protected SkinnedMeshRenderer meshs;
+    [SerializeField] protected float damageCooldown;
 
     // 맞았는지 
     private bool canTakeDamage = true;
@@ -20,52 +28,14 @@ public abstract class Health : MonoBehaviour
 
     public abstract void Hit(int damage);
 
-    private void Start()
+    void Awake()
     {
-        meshs = GetComponentInChildren<SkinnedMeshRenderer>();
+        Hp = maxHp; // 처음 체력을 최대 체력으로 설정
     }
 
-    protected IEnumerator DamagerCoolDoun()
+    public void Heal(int amount)
     {
-        Material[] materialsCopy = meshs.materials;
-
-        // 각 머티리얼의 색상을 변경
-        for (int i = 0; i < materialsCopy.Length; i++)
-        {
-            materialsCopy[i].color = Color.red;
-        }
-
-        meshs.materials = materialsCopy;
-
-        // 맞는 사운드
-        //SoundManager.instance.PlaySfx(e_Sfx.Hit);
-
-        yield return new WaitForSeconds(0.2f);
-
-        materialsCopy = meshs.materials;
-
-        // 각 머티리얼의 색상을 변경
-        for (int i = 0; i < materialsCopy.Length; i++)
-        {
-            materialsCopy[i].color = Color.white;
-        }
-
-        meshs.materials = materialsCopy;
-    }
-
-
-    protected IEnumerator IsHitCoroutine(int damage)
-    {
-        CanTakeDamage = false;
-
-        //// 대미지가 들어온 만큼 체력을 깍음
-        Hp -= damage;
-
-        //// UImanager에서 체력 리프레쉬
-        //UIManager.instance.RefreshHp(gameObject.tag, this);
-
-        yield return new WaitForSeconds(damageCooldown);
-
-        CanTakeDamage = true;
+        Hp += amount;
+        GameManager.instance.RefreshHp(gameObject.tag, this);
     }
 }

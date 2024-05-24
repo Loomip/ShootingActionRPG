@@ -80,6 +80,8 @@ public class CharacterInputMovement : MonoBehaviour
     // 캐릭터 회전 처리 (마우스 포인터 방향으로 캐릭터가 바라보게)
     private void Turning()
     {
+        if (health.IsDie) return;
+
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit floorHit;

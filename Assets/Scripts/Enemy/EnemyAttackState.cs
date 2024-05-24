@@ -19,6 +19,8 @@ public class EnemyAttackState : EnemyAttackableState
     // 회전 보간 수치
     [SerializeField] protected float smoothValue;
 
+    [SerializeField] protected int atk;
+
     // 공격 대상을 주시
     protected void LookAtTarget()
     {
@@ -34,20 +36,27 @@ public class EnemyAttackState : EnemyAttackableState
 
     public void Attack()
     {
+        // 공격이 시작되었음을 디버그 로그로 출력
+
+        // 공격 범위 내의 충돌체 탐지
         Collider[] hits = Physics.OverlapSphere(attackTransfom.position, attackRadius, targetLayer);
 
         foreach (Collider hit in hits)
         {
-            Vector3 directionToTargert = hit.transform.position - transform.position;
-
-            float angleToTarget = Vector3.Angle(transform.forward, directionToTargert);
+            Vector3 directionToTarget = hit.transform.position - transform.position;
+            float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
 
             if (angleToTarget < hitAngle)
             {
-                // Player 피격 처리
-                if (hit.tag == "Player")
+                // 플레이어 피격 처리
+                if (hit.CompareTag("Player"))
                 {
                     // 히트 판정
+                    PHealth pHealth = hit.GetComponent<PHealth>();
+                    if (pHealth != null)
+                    {
+                        pHealth.Hit(atk);
+                    }
                 }
             }
         }
@@ -65,6 +74,10 @@ public class EnemyAttackState : EnemyAttackableState
     public override void UpdateState()
     {
         // 죽엇으면 리턴
+        if (health.Hp <= 0)
+        {
+            controller.Death();
+        }
 
         // 공격 범위를 넘어가면
         if (controller.GetPlayerDistance() > attackDistance)

@@ -20,6 +20,10 @@ public class EnemyRunState : EnemyAttackableState
     public override void UpdateState()
     {
         // 죽엇으면 리턴
+        if (health.Hp <= 0)
+        {
+            controller.Death();
+        }
 
         // 플레이어가 공격 가능 거리안에 들어왔다면
         if (controller.GetPlayerDistance() <= attackDistance)
