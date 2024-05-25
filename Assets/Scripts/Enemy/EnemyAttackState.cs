@@ -77,6 +77,7 @@ public class EnemyAttackState : EnemyAttackableState
         if (health.Hp <= 0)
         {
             controller.Death();
+            return;
         }
 
         // 공격 범위를 넘어가면

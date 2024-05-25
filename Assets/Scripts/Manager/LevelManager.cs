@@ -18,17 +18,15 @@ public class LevelManager : MonoBehaviour
     // 맵에 동시에 존재할 수 있는 몬스터의 최대 수
     [SerializeField] private int maxMonstersOnMap;
 
+    // 현재 소환된 몬스터 수를 추적하기 위한 임시 변수
+    private int currentMonstersOnMap;
+
     public void StartRound(int roundNumber)
     {
         // 라운드에 따라 난이도 조절
         MonstersToSpawn = roundNumber * 16;
         MonstersDefeated = 0;
-
-        // 각 스포너의 SpawnedMonsters 변수 초기화
-        foreach (EnemySpawn spawner in spawners)
-        {
-            spawner.ResetSpawnedMonsters();
-        }
+        currentMonstersOnMap = 0;
 
         // 몬스터 소환 코루틴 시작
         StartCoroutine(SpawnMonsters());
@@ -37,15 +35,8 @@ public class LevelManager : MonoBehaviour
     // 몬스터 소환 코루틴
     private IEnumerator SpawnMonsters()
     {
-        while (true) // 무한 루프로 변경
+        while (currentMonstersOnMap < MonstersToSpawn)
         {
-            int currentMonstersOnMap = 0;
-
-            foreach (EnemySpawn spawner in spawners)
-            {
-                currentMonstersOnMap += spawner.SpawnedMonsters;
-            }
-
             if (currentMonstersOnMap < maxMonstersOnMap)
             {
                 // 랜덤한 스포너 선택
@@ -55,18 +46,18 @@ public class LevelManager : MonoBehaviour
                 // 선택한 스포너에서 몬스터 1마리 소환
                 spawner.SpawnMonster();
                 currentMonstersOnMap++;
+
+                // 모든 몬스터가 소환되었으면 코루틴 종료
+                if (currentMonstersOnMap >= MonstersToSpawn)
+                {
+                    break;
+                }
+
+                Debug.Log(" 현재 맵에 있는 몬스터 수 : " + currentMonstersOnMap);
+                Debug.Log(" 소환 할 총 몬스터 수 : " + MonstersToSpawn);
             }
 
-            Debug.Log("몬스터 소환 수 :" + currentMonstersOnMap);
-            Debug.Log("소환 최대 몬스터 수 :" + MonstersToSpawn);
-
-            // 모든 몬스터가 소환되었으면 코루틴 종료
-            if (currentMonstersOnMap == MonstersToSpawn)
-            {
-                break;
-            }
-
-            yield return new WaitForSeconds(1f); // 0.5초 대기
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -82,5 +73,10 @@ public class LevelManager : MonoBehaviour
             // GameManager에게 레벨 클리어를 알림
             GameManager.instance.OnLevelCleared();
         }
+    }
+
+    public void Update()
+    {
+        Debug.Log(" 잡은 몬스터 수 : " + MonstersDefeated);
     }
 }

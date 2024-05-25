@@ -23,6 +23,7 @@ public class EnemyRunState : EnemyAttackableState
         if (health.Hp <= 0)
         {
             controller.Death();
+            return;
         }
 
         // 플레이어가 공격 가능 거리안에 들어왔다면

@@ -30,6 +30,7 @@ public class EnemyHitState : EnemyAttackableState
         if(health.Hp <= 0)
         {
             controller.Death();
+            return;
         }
 
         if(!IsHit)
