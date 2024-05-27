@@ -24,15 +24,14 @@ public class Laser : MonoBehaviour
         // 발포 레이캐스트 충돌(피격) 체크
         RaycastHit[] hits = Physics.RaycastAll(laserGunshootRay, laserGunRange, laserGunshootableMask);
 
-        foreach (RaycastHit hit in hits)
+        foreach (var hit in hits)
         {
             // 피격 당한 몬스터의 피격 처리
             EHeath enemyHealth = hit.collider.GetComponent<EHeath>();
             EnemyFSMController enemyFSMController = hit.collider.GetComponent<EnemyFSMController>();
-            Laser laser = GetComponent<Laser>();
             if (enemyHealth != null && enemyFSMController != null)
             {
-                enemyHealth.Hit(laser.Atk);
+                enemyHealth.Hit(Atk);
                 enemyFSMController.Hit();
             }
         }

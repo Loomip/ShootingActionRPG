@@ -109,7 +109,7 @@ public class CharacterAttackComponent : MonoBehaviour
     }
 
     // 레이저건
-    private void LaserGun()
+    public void LaserGun()
     {
         // 라인 렌더러 프리팹 인스턴스화
         GameObject laserLineInstance = Instantiate(laserGunLinePrefab);
@@ -120,14 +120,13 @@ public class CharacterAttackComponent : MonoBehaviour
         laserLineRenderer.positionCount = 2;
         laserLineRenderer.SetPosition(0, bulletPos.position);
 
-        // 레이저 대미지 처리
         Vector3 direction = bulletPos.forward;
-        laser.CheckForDamage(bulletPos.position, direction);
+        laser.CheckForDamage(transform.position, direction);
 
         // 레이저 최대 거리까지 라인 설정
         laserLineRenderer.SetPosition(1, bulletPos.position + (direction * laser.LaserGunRange));
 
         // 일정 시간 후 라인 렌더러 삭제
-        Destroy(laserLineInstance, 0.1f);
+        Destroy(laserLineInstance, 0.5f);
     }
 }
