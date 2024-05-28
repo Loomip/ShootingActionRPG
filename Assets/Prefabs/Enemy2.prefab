@@ -3324,9 +3324,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4
-  m_Height: 1.6
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!195 &8935685083552659556
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3516,13 +3516,11 @@ MonoBehaviour:
   items:
   - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
   - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
-  - {fileID: 644823536315019235, guid: cdba469aaee7792418cc950dd989a44e, type: 3}
   - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
   dropChances:
-  - 20
-  - 15
   - 10
-  - 5
+  - 7.5
+  - 2.5
 --- !u!1 &4924658037901427513
 GameObject:
   m_ObjectHideFlags: 0

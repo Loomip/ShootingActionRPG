@@ -56,6 +56,7 @@ public class EnemyAttackState : EnemyAttackableState
                     if (pHealth != null)
                     {
                         pHealth.Hit(atk);
+                        Debug.Log("¸Â´ÂÁß");
                     }
                 }
             }

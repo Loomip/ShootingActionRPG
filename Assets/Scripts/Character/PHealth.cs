@@ -44,7 +44,8 @@ public class PHealth : Health
             StartCoroutine(IsHitCoroutine(damage));
             hitParticle.Play();
         }
-        else
+
+        else if(Hp <= 0)
         {
             animator.SetTrigger("Death");
             //ending.SetActive(true);

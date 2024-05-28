@@ -52,9 +52,6 @@ public class LevelManager : MonoBehaviour
                 {
                     break;
                 }
-
-                Debug.Log(" 현재 맵에 있는 몬스터 수 : " + currentMonstersOnMap);
-                Debug.Log(" 소환 할 총 몬스터 수 : " + MonstersToSpawn);
             }
 
             yield return new WaitForSeconds(1f);
@@ -73,10 +70,5 @@ public class LevelManager : MonoBehaviour
             // GameManager에게 레벨 클리어를 알림
             GameManager.instance.OnLevelCleared();
         }
-    }
-
-    public void Update()
-    {
-        Debug.Log(" 잡은 몬스터 수 : " + MonstersDefeated);
     }
 }

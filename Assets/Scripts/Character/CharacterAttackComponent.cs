@@ -20,8 +20,8 @@ public class CharacterAttackComponent : MonoBehaviour
     // 총쏘는 파티클
     [SerializeField] private ParticleSystem bulletEffect;
 
-    // 레이저 발포 효과 라인렌더러 컴포넌트
-    [SerializeField] private GameObject laserGunLinePrefab;
+    // 공격 종류에 따른 무기가 바뀔 배열
+    [SerializeField] private GameObject[] weaponObjects;
 
     private PHealth health;
 
@@ -72,16 +72,21 @@ public class CharacterAttackComponent : MonoBehaviour
 
     public void ChangeWeapon(string newWeaponType)
     {
+        // 모든 무기를 비활성화
+        foreach (var weapon in weaponObjects)
+        {
+            weapon.SetActive(false);
+        }
+
         switch (newWeaponType)
         {
             case "MachineGun":
                 animator.SetInteger("WeaponType", 0);
+                weaponObjects[0].SetActive(true);
                 break;
             case "GrenadeLauncher":
                 animator.SetInteger("WeaponType", 1);
-                break;
-            case "LaserGun":
-                animator.SetInteger("WeaponType", 2);
+                weaponObjects[1].SetActive(true);
                 break;
         }
     }
@@ -106,27 +111,5 @@ public class CharacterAttackComponent : MonoBehaviour
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         rigidbody.velocity = bulletPos.forward * 20f;
-    }
-
-    // 레이저건
-    public void LaserGun()
-    {
-        // 라인 렌더러 프리팹 인스턴스화
-        GameObject laserLineInstance = Instantiate(laserGunLinePrefab);
-        LineRenderer laserLineRenderer = laserLineInstance.GetComponent<LineRenderer>();
-        Laser laser = laserLineInstance.GetComponent<Laser>();
-
-        // LineRenderer 설정
-        laserLineRenderer.positionCount = 2;
-        laserLineRenderer.SetPosition(0, bulletPos.position);
-
-        Vector3 direction = bulletPos.forward;
-        laser.CheckForDamage(transform.position, direction);
-
-        // 레이저 최대 거리까지 라인 설정
-        laserLineRenderer.SetPosition(1, bulletPos.position + (direction * laser.LaserGunRange));
-
-        // 일정 시간 후 라인 렌더러 삭제
-        Destroy(laserLineInstance, 0.5f);
     }
 }
