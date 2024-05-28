@@ -121,13 +121,6 @@ public class CharacterAttackComponent : MonoBehaviour
     public void LaserShot()
     {
         GameObject laserLineInstance = Instantiate(shootersPrefab[2], BulletPos.position, BulletPos.rotation);
-        LineRenderer laserLineRenderer = laserLineInstance.GetComponent<LineRenderer>();
-        Laser laser = laserLineRenderer.GetComponent<Laser>();
-
-        laserLineRenderer.positionCount = 2;
-        laserLineRenderer.SetPosition(0, bulletPos.position);
-
-        laser.LaserStraight();
-        laserLineRenderer.SetPosition(1, bulletPos.position + (bulletPos.forward * laser.LaserDistance));
+        //laserLineInstance.transform.localRotation *= Quaternion.Euler(0, 0, 0);
     }
 }

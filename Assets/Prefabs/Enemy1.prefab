@@ -579,12 +579,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDistance: 2
   attackTransfom: {fileID: 3220432170026928214}
-  attackRadius: 1
-  hitAngle: 5
+  attackRadius: 2
+  hitAngle: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
-  smoothValue: 5
+  smoothValue: 10
   atk: 20
 --- !u!114 &4590124364475996902
 MonoBehaviour:
@@ -619,11 +619,13 @@ MonoBehaviour:
   items:
   - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
   - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
+  - {fileID: 6965239581778938438, guid: de3f48fdbc8dab9448e1924b4d63c156, type: 3}
   - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
   dropChances:
-  - 10
-  - 7.5
-  - 2.5
+  - 8
+  - 6
+  - 4
+  - 2
 --- !u!1 &256189895401979192
 GameObject:
   m_ObjectHideFlags: 0
