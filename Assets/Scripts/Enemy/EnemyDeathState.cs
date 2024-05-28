@@ -69,7 +69,7 @@ public class EnemyDeathState : EnemyState
         // 이동 중지
         nav.isStopped = true;
 
-        collider.isTrigger = true;
+        col.isTrigger = true;
 
         gameObject.layer = 0;
 

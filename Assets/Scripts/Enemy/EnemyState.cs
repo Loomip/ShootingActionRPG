@@ -19,7 +19,7 @@ public abstract class EnemyState : MonoBehaviour
 
     protected Health health;
 
-    protected Collider collider;
+    protected Collider col;
 
     // 몬스터 상태 관련 인터페이스(문법아님) 메소드 선언
 
@@ -39,6 +39,6 @@ public abstract class EnemyState : MonoBehaviour
         controller = GetComponent<EnemyFSMController>();
         health = GetComponent<Health>();
         levelManager = FindObjectOfType<LevelManager>();
-        collider = GetComponent<Collider>();
+        col = GetComponent<Collider>();
     }
 }

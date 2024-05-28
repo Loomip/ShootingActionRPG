@@ -10,12 +10,12 @@ public class CharacterAttackComponent : MonoBehaviour
     // 공격 조이스틱 컴포넌트
     [SerializeField] private VariableJoystick attackJoy;
 
-    // 총알 프리펩
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject strayBulletPrefab;
+    // 총알 오브젝트들
+    [SerializeField] private GameObject[] shootersPrefab;
 
     // 총알이 나갈 위치 
     [SerializeField] private Transform bulletPos;
+    public Transform BulletPos { get => bulletPos; set => bulletPos = value; }
 
     // 총쏘는 파티클
     [SerializeField] private ParticleSystem bulletEffect;
@@ -88,6 +88,10 @@ public class CharacterAttackComponent : MonoBehaviour
                 animator.SetInteger("WeaponType", 1);
                 weaponObjects[1].SetActive(true);
                 break;
+            case "LaserGun":
+                animator.SetInteger("WeaponType", 2);
+                weaponObjects[2].SetActive(true);
+                break;
         }
     }
 
@@ -97,19 +101,33 @@ public class CharacterAttackComponent : MonoBehaviour
         // 랜덤한 오프셋을 생성
         Vector3 offset = Random.insideUnitSphere * 0.1f;
         // 총알을 생성
-        GameObject bullet = Instantiate(bulletPrefab, bulletPos.position + offset, bulletPos.rotation);
+        GameObject bullet = Instantiate(shootersPrefab[0], BulletPos.position + offset, BulletPos.rotation);
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-        rigidbody.velocity = bulletPos.forward * 20f;
+        rigidbody.velocity = BulletPos.forward * 20f;
     }
 
     // 유탄발사기
     public void StrayBullet()
     {
         // 총알을 생성
-        GameObject bullet = Instantiate(strayBulletPrefab, bulletPos.position, bulletPos.rotation);
+        GameObject bullet = Instantiate(shootersPrefab[1], BulletPos.position, BulletPos.rotation);
         bullet.transform.localRotation *= Quaternion.Euler(90, 0, 0);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-        rigidbody.velocity = bulletPos.forward * 20f;
+        rigidbody.velocity = BulletPos.forward * 20f;
+    }
+
+    // 레이저 건
+    public void LaserShot()
+    {
+        GameObject laserLineInstance = Instantiate(shootersPrefab[2], BulletPos.position, BulletPos.rotation);
+        LineRenderer laserLineRenderer = laserLineInstance.GetComponent<LineRenderer>();
+        Laser laser = laserLineRenderer.GetComponent<Laser>();
+
+        laserLineRenderer.positionCount = 2;
+        laserLineRenderer.SetPosition(0, bulletPos.position);
+
+        laser.LaserStraight();
+        laserLineRenderer.SetPosition(1, bulletPos.position + (bulletPos.forward * laser.LaserDistance));
     }
 }

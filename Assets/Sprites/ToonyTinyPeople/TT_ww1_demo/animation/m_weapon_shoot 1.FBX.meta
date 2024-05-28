@@ -196,7 +196,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: LaserGun
+        functionName: LaserShot
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
