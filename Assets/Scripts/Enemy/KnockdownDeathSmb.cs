@@ -14,31 +14,42 @@ public class KnockdownDeathSmb : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<EnemyKnockdownState>().IsKnockDown = true;
         backward = -animator.transform.forward;
 
         animator.GetComponent<NavMeshAgent>().updateRotation = false;
+
         animator.applyRootMotion = false;
+
+        // 타이머 초기화
+        time = 0f; 
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         time += Time.deltaTime;
 
-        if (time > 0.5f)
-        {
-            animator.GetComponent<NavMeshAgent>().isStopped = true;
-            animator.GetComponent<EnemyKnockdownState>().IsKnockDown = false;
-        }
-        else
+        if (time < 0.7f)
         {
             //animator.GetComponent<NavMeshAgent>().velocity = backward * nuckBackSize;
             animator.GetComponent<NavMeshAgent>().velocity = backward * nuckBackSize;
         }
+        else
+        {
+            animator.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+            animator.GetComponent<NavMeshAgent>().updateRotation = true;
+            animator.GetComponent<EnemyKnockdownState>().IsKnockDown = false;
+
+            if (animator.GetComponent<EnemyState>().Health.Hp <= 0)
+            {
+                animator.GetComponent<NavMeshAgent>().isStopped = true;
+            }
+        }
+
+        
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<NavMeshAgent>().enabled = false;
+        
     }
 }

@@ -74,7 +74,7 @@ public class EnemyAttackState : EnemyAttackableState
     public override void UpdateState()
     {
         // 죽엇으면 리턴
-        if (health.Hp <= 0)
+        if (Health.Hp <= 0)
         {
             controller.Death();
             return;

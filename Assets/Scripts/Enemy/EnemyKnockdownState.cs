@@ -17,7 +17,7 @@ public class EnemyKnockdownState : EnemyAttackableState
 
     private const float totalChance = 100f; // ÀüÃ¼ µå·Ó È®·ü
 
-    private bool isKnockDown;
+    [SerializeField] private bool isKnockDown = false;
 
     public bool IsKnockDown { get => isKnockDown; set => isKnockDown = value; }
 
@@ -70,11 +70,7 @@ public class EnemyKnockdownState : EnemyAttackableState
 
     public override void EnterState(e_EnemyState state)
     {
-        nav.isStopped = true;
-
-        col.isTrigger = true;
-
-        nav.speed = 0f;
+        isKnockDown = true;
 
         animator.SetInteger("state", (int)state);
     }
@@ -85,9 +81,13 @@ public class EnemyKnockdownState : EnemyAttackableState
         if (IsKnockDown) return;
 
         // ³Ë¹é µÌÀ»¶§ Á×À¸¸é
-        if (health.Hp <= 0)
+        if (Health.Hp <= 0)
         {
+            // »ç¸Á Ã³¸® Áö¿¬½Ã°£ ½ÃÀÛ
             time += Time.deltaTime;
+
+            //ÄÝ¶óÀÌ´õ¸¦ ²¨ÁÜ
+            col.isTrigger = true;
 
             // »ç¸Á Ã³¸® Áö¿¬½Ã°£ÀÌ Áö³µ´Ù¸é
             if (time >= deathDelayTime)
@@ -102,7 +102,8 @@ public class EnemyKnockdownState : EnemyAttackableState
                 Destroy(gameObject);
             }
         }
-        else if(health.Hp > 0)
+
+        else if(Health.Hp > 0 && !IsKnockDown)
         {
             controller.TransactionToState(e_EnemyState.WakeUp);
         }

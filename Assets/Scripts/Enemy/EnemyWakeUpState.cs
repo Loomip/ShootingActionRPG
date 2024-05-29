@@ -7,6 +7,8 @@ public class EnemyWakeUpState : EnemyState
     // 대기 상태 시작(진입) 처리 (상태 초기화)
     public override void EnterState(e_EnemyState state)
     {
+        nav.isStopped = true;
+
         animator.SetInteger("state", (int)state);
     }
 
