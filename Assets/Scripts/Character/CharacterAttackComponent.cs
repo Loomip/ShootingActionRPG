@@ -121,6 +121,5 @@ public class CharacterAttackComponent : MonoBehaviour
     public void LaserShot()
     {
         GameObject laserLineInstance = Instantiate(shootersPrefab[2], BulletPos.position, BulletPos.rotation);
-        //laserLineInstance.transform.localRotation *= Quaternion.Euler(0, 0, 0);
     }
 }

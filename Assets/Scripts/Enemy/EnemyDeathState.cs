@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDeathState : EnemyState
 {
     // 사망 완료 처리 시간
-    [SerializeField] protected float time;
+    protected float time;
     [SerializeField] protected float deathDelayTime;
 
     // 사망 처리 이펙트

@@ -33,7 +33,7 @@ public class EnemyHitState : EnemyAttackableState
             return;
         }
 
-        if(!IsHit)
+        if (!IsHit)
         {
             // 플레이어가 공격 가능 거리안에 들어왔다면
             if (controller.GetPlayerDistance() <= attackDistance)

@@ -3199,7 +3199,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1944270344355367960}
   - component: {fileID: 3569985815779194082}
-  - component: {fileID: -7878335172478151311}
   - component: {fileID: 6885585607248840936}
   - component: {fileID: 8935685083552659556}
   - component: {fileID: 8312980438728473989}
@@ -3208,6 +3207,8 @@ GameObject:
   - component: {fileID: 8824481386723577189}
   - component: {fileID: 3131627348639894174}
   - component: {fileID: 5625272853388254626}
+  - component: {fileID: 977841684799830542}
+  - component: {fileID: 4029406281434191647}
   - component: {fileID: 1847578091979483493}
   m_Layer: 6
   m_Name: Enemy2
@@ -3277,33 +3278,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &-7878335172478151311
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4922178577906537623}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 2
 --- !u!136 &6885585607248840936
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3384,6 +3358,8 @@ MonoBehaviour:
   - {fileID: 8824481386723577189}
   - {fileID: 3131627348639894174}
   - {fileID: 5625272853388254626}
+  - {fileID: 977841684799830542}
+  - {fileID: 4029406281434191647}
   - {fileID: 1847578091979483493}
   headModels:
   - {fileID: 5727241077607143980}
@@ -3497,6 +3473,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDistance: 2
   hitParticle: {fileID: 994590021100126599}
+--- !u!114 &977841684799830542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922178577906537623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfcd9bfb66f584439899b0a79b2af70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 2
+  deathDelayTime: 2
+  destroyParticlePrefab: {fileID: 9157105887711914197, guid: a9b4d2180adf6b341b49ef72fb7e7cc1,
+    type: 3}
+  items:
+  - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
+  - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
+  - {fileID: 6965239581778938438, guid: de3f48fdbc8dab9448e1924b4d63c156, type: 3}
+  - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
+  dropChances:
+  - 8
+  - 6
+  - 4
+  - 2
+--- !u!114 &4029406281434191647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922178577906537623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc88a8ae0228814ead616ee5c62c6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1847578091979483493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3509,7 +3523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4208133de14dcdd4287270a8b4a893ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
   deathDelayTime: 1
   destroyParticlePrefab: {fileID: 9157105887711914197, guid: a9b4d2180adf6b341b49ef72fb7e7cc1,
     type: 3}

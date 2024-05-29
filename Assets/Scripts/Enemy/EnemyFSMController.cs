@@ -45,6 +45,14 @@ public class EnemyFSMController : MonoBehaviour
         TransactionToState(e_EnemyState.Hit);
     }
 
+    public void Knockdown()
+    {
+        // 현재 상태가 이미 사망한 상태면 피격 처리하지 않음
+        if (currentState == EnemyStatas[(int)e_EnemyState.Die]) return;
+
+        TransactionToState(e_EnemyState.Knockdown);
+    }
+
     public void Death()
     {
         // 죽음 상태로 전환

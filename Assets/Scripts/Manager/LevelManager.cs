@@ -47,11 +47,13 @@ public class LevelManager : MonoBehaviour
                 spawner.SpawnMonster();
                 currentMonstersOnMap++;
 
-                // 모든 몬스터가 소환되었으면 코루틴 종료
-                if (currentMonstersOnMap >= MonstersToSpawn)
-                {
-                    break;
-                }
+                Debug.Log(" 소환 되는 몬스터 수 : " + currentMonstersOnMap);
+            }
+
+            // 모든 몬스터가 소환되었으면 코루틴 종료
+            if (currentMonstersOnMap == MonstersToSpawn)
+            {
+                break;
             }
 
             yield return new WaitForSeconds(1f);
@@ -63,6 +65,8 @@ public class LevelManager : MonoBehaviour
         // 몬스터가 패배하면 카운트 증가
         MonstersDefeated++;
         GameManager.instance.UpdateUI();
+
+        Debug.Log(" 죽인 몬스터 수 : " + MonstersDefeated);
 
         // 모든 몬스터가 패배하면 
         if (MonstersDefeated >= MonstersToSpawn)

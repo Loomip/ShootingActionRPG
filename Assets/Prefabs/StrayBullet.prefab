@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a9106c6d96b8847b91f884bfdaa47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atk: 100
+  atk: 50
   hitLayerNames:
   - Enemy
   maxTravelDistance: 100

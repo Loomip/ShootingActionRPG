@@ -43,7 +43,6 @@ public class Laser : MonoBehaviour
                 var enemyHealth = hit.collider.GetComponent<EHeath>();
                 if (enemyHealth != null)
                 {
-                    Debug.Log($"Hit enemy: {hit.collider.gameObject.name}");
                     enemyHealth.Hit(atk);
                 }
 
