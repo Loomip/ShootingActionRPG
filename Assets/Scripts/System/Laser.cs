@@ -19,13 +19,13 @@ public class Laser : MonoBehaviour
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        Destroy(gameObject, 0.6f);
+        Destroy(gameObject, 0.1f);
+        LaserStraight();
     }
 
     private void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward * laserDistance, Color.red, 2f);
-        LaserStraight();
+        //Debug.DrawRay(transform.position, transform.forward * laserDistance, Color.red, 2f);
     }
 
     public void LaserStraight()

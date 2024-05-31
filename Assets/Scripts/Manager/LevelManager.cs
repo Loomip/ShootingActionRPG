@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -18,24 +19,29 @@ public class LevelManager : MonoBehaviour
     // 맵에 동시에 존재할 수 있는 몬스터의 최대 수
     [SerializeField] private int maxMonstersOnMap;
 
-    // 현재 소환된 몬스터 수를 추적하기 위한 임시 변수
+    // 현재 맵에 소환된 몬스터 수를 추적하기 위한 임시 변수
     private int currentMonstersOnMap;
+
+    // 현재 라운드에 소환된 총 몬스터 수를 추적하기 위한 변수
+    private int totalSpawnedMonsters;
 
     public void StartRound(int roundNumber)
     {
         // 라운드에 따라 난이도 조절
         MonstersToSpawn = roundNumber * 16;
+
+        // 모든 변수 초기화
         MonstersDefeated = 0;
         currentMonstersOnMap = 0;
+        totalSpawnedMonsters = 0;
 
         // 몬스터 소환 코루틴 시작
         StartCoroutine(SpawnMonsters());
     }
 
-    // 몬스터 소환 코루틴
     private IEnumerator SpawnMonsters()
     {
-        while (currentMonstersOnMap < MonstersToSpawn)
+        while (totalSpawnedMonsters < MonstersToSpawn)
         {
             if (currentMonstersOnMap < maxMonstersOnMap)
             {
@@ -43,30 +49,34 @@ public class LevelManager : MonoBehaviour
                 int spawnerIndex = Random.Range(0, spawners.Length);
                 EnemySpawn spawner = spawners[spawnerIndex];
 
-                // 선택한 스포너에서 몬스터 1마리 소환
+                // 선택한 스포너에서 몬스터 소환
                 spawner.SpawnMonster();
                 currentMonstersOnMap++;
+                totalSpawnedMonsters++;
 
-                Debug.Log(" 소환 되는 몬스터 수 : " + currentMonstersOnMap);
+                Debug.Log("소환되는 몬스터 수: " + currentMonstersOnMap);
+
+                yield return new WaitForSeconds(0.1f);
             }
-
-            // 모든 몬스터가 소환되었으면 코루틴 종료
-            if (currentMonstersOnMap == MonstersToSpawn)
+            else
             {
-                break;
+                Debug.Log("현재 맵에 있는 몬스터 수가 최대치에 도달했습니다. 대기 중...");
+                yield return new WaitForSeconds(1f); // 1초 후에 다시 시작
             }
-
-            yield return new WaitForSeconds(1f);
         }
+
+        Debug.Log("모든 몬스터가 소환되었습니다.");
     }
 
     public void OnMonsterDefeated()
     {
         // 몬스터가 패배하면 카운트 증가
+        currentMonstersOnMap--;
         MonstersDefeated++;
         GameManager.instance.UpdateUI();
 
         Debug.Log(" 죽인 몬스터 수 : " + MonstersDefeated);
+
 
         // 모든 몬스터가 패배하면 
         if (MonstersDefeated >= MonstersToSpawn)

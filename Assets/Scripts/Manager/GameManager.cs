@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     [Header("라운드")]
     [SerializeField] private LevelManager levelManager; // 레벨 매니저 참조
     [SerializeField] private TextMeshProUGUI txt_DeathCount;
-    private int currentRound = 0; // 현재 라운드
+    [SerializeField] private int currentRound = 0; // 현재 라운드
 
     void StartNextRound()
     {
@@ -36,7 +36,6 @@ public class GameManager : Singleton<GameManager>
     [Header("UI")]
     [SerializeField] private Slider playerHp;
     
-
     // 생성된 각 몬스터의 체력바를 저장할 딕셔너리
     [SerializeField] private Dictionary<Health, Slider> enemyHealthBars = new Dictionary<Health, Slider>();
 

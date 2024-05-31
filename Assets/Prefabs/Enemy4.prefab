@@ -4280,6 +4280,7 @@ MonoBehaviour:
   - 6
   - 4
   - 2
+  isKnockDown: 0
 --- !u!114 &-3804803098965542912
 MonoBehaviour:
   m_ObjectHideFlags: 0

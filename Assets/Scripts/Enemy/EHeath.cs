@@ -9,6 +9,9 @@ public class EHeath : Health
     // 몬스터 체력바
     [SerializeField] private GameObject healthBarPrefab;
 
+    // 체력바 오브젝트를 담을 변수
+    GameObject healthBarObject;
+
     protected IEnumerator IsHitCoroutine(int damage)
     {
         CanTakeDamage = false;
@@ -35,8 +38,16 @@ public class EHeath : Health
 
     private void Start()
     {
-        GameObject healthBarObject = Instantiate(healthBarPrefab, transform.position + Vector3.up * 2, Quaternion.identity, transform);
+        healthBarObject = Instantiate(healthBarPrefab, transform.position + Vector3.up * 2, Quaternion.identity, transform);
         Slider healthBar = healthBarObject.GetComponentInChildren<Slider>();
         GameManager.instance.RegisterEnemyHealthBar(this, healthBar);
+    }
+
+    private void Update()
+    {
+        if (Hp <= 0)
+        {
+            Destroy(healthBarObject);
+        }
     }
 }
