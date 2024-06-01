@@ -64,8 +64,30 @@ public class GameManager : Singleton<GameManager>
 
     //=================================================================================================================
 
+    [Header("돈")]
+    //골드
+    [SerializeField] TextMeshProUGUI goldText;
+
+    // 현재 골드를 저장하는 변수
+    private int gold = 0;
+
+    //골드 UI를 리프레쉬 해주는 함수
+    public void Refresh_Gold()
+    {
+        if (goldText != null)
+            goldText.text = string.Format("{0: #,##0}", gold);
+    }
+
+    public void Add_Gold(int addGold)
+    {
+        gold += addGold;
+    }
+
+    //=================================================================================================================
+
     private void Start()
     {
+        Refresh_Gold();
         StartNextRound();
     }
 }

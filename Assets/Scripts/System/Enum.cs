@@ -12,3 +12,11 @@ public enum e_EnemyState
     WakeUp, // 일어나는 상태
     Die         // 죽음 상태
 }
+
+public enum e_MenuType
+{
+    None,
+    Face,   // 얼굴
+    Top,    // 상의
+    Length
+}

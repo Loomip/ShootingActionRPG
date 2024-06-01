@@ -515,6 +515,17 @@ MonoBehaviour:
   - {fileID: 2989408888504923957}
   - {fileID: 6080396940867895414}
   WeaponModels: []
+  items:
+  - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
+  - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
+  - {fileID: 6965239581778938438, guid: de3f48fdbc8dab9448e1924b4d63c156, type: 3}
+  - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
+  dropChances:
+  - 8
+  - 6
+  - 4
+  - 2
+  dropGold: 100
 --- !u!114 &4558994246599081937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,16 +603,6 @@ MonoBehaviour:
   deathDelayTime: 2
   destroyParticlePrefab: {fileID: 9157105887711914197, guid: a9b4d2180adf6b341b49ef72fb7e7cc1,
     type: 3}
-  items:
-  - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
-  - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
-  - {fileID: 6965239581778938438, guid: de3f48fdbc8dab9448e1924b4d63c156, type: 3}
-  - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
-  dropChances:
-  - 8
-  - 6
-  - 4
-  - 2
   isKnockDown: 0
 --- !u!114 &4942421197699474555
 MonoBehaviour:
@@ -630,16 +631,6 @@ MonoBehaviour:
   deathDelayTime: 1
   destroyParticlePrefab: {fileID: 9157105887711914197, guid: a9b4d2180adf6b341b49ef72fb7e7cc1,
     type: 3}
-  items:
-  - {fileID: 8645657399354867080, guid: 121db8014bcaad84e9038d6bad3083d5, type: 3}
-  - {fileID: 9174984222105111409, guid: 6fc3d37350be3834090652ed94ffb871, type: 3}
-  - {fileID: 6965239581778938438, guid: de3f48fdbc8dab9448e1924b4d63c156, type: 3}
-  - {fileID: 9154087034204172393, guid: 642f791d278abcd40a663a4cd44e7b4a, type: 3}
-  dropChances:
-  - 8
-  - 6
-  - 4
-  - 2
 --- !u!1 &256189895401979192
 GameObject:
   m_ObjectHideFlags: 0
