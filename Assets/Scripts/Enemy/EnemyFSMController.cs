@@ -10,6 +10,9 @@ public class EnemyFSMController : MonoBehaviour
     // 몬스터의 모든 상태 컴포넌트들
     [SerializeField] private EnemyState[] EnemyStatas;
 
+    // 회전 보간 수치
+    [SerializeField] protected float smoothValue;
+
     // 플레이어 참조
     protected GameObject player;
     public GameObject Player { get => player; set => player = value; }
@@ -41,6 +44,19 @@ public class EnemyFSMController : MonoBehaviour
     public float GetPlayerDistance()
     {
         return Vector3.Distance(transform.position, player.transform.position);
+    }
+
+    // 공격 대상을 주시
+    public void LookAtTarget()
+    {
+        // 공격 대상을 향한 방향을 계산
+        Vector3 direction = (Player.transform.position - transform.position).normalized;
+
+        // 회전 쿼터니언 계산
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+
+        // 보간 회전
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * smoothValue);
     }
 
     // 플레이어에게 공격을 받음

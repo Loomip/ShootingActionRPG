@@ -23,8 +23,6 @@ public abstract class EnemyState : MonoBehaviour
 
     protected Collider col;
 
-
-
     // 몬스터 상태 관련 인터페이스(문법아님) 메소드 선언
 
     // 몬스터 상태 시작 (다른상태로 전이됨) 메소드
