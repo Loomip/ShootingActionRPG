@@ -4293,9 +4293,9 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
-  EnemyBullet: {fileID: 1038614318139965894, guid: 440a1476c4d99fb49b96b7c216a17781,
+  enemyBullet: {fileID: 1038614318139965894, guid: 440a1476c4d99fb49b96b7c216a17781,
     type: 3}
-  BulletPos: {fileID: 6618749081874681483}
+  bulletPos: {fileID: 6618749081874681483}
   atk: 20
 --- !u!114 &-6498423333178886640
 MonoBehaviour:

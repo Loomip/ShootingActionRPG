@@ -13,7 +13,7 @@ public class EnemyRunState : EnemyAttackableState
         // 공격 대상 추적 처리
         nav.isStopped = false;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     // 대기 상태 기능 동작 처리 (상태 실행)

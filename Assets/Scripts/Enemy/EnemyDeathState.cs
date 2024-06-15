@@ -22,9 +22,9 @@ public class EnemyDeathState : EnemyState
 
         //SoundManager.instance.PlaySfx(e_Sfx.EnemyDie);
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
 
-        animator.SetBool("isDeath", true);
+        Anima.SetBool("isDeath", true);
 
         levelManager.OnMonsterDefeated();
 

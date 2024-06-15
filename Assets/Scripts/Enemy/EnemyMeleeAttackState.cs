@@ -53,7 +53,7 @@ public class EnemyMeleeAttackState : EnemyAttackableState
 
         nav.speed = 0f;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     public override void UpdateState()

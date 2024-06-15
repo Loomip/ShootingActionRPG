@@ -22,7 +22,7 @@ public class EnemyHitState : EnemyAttackableState
         hitParticle.Play();
 
         // 히트 모션 실행
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     public override void UpdateState()

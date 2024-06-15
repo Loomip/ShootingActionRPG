@@ -12,6 +12,11 @@ public class EnemyIdleState : EnemyAttackableState
 
         // 대기 애니메이션 재생
         //animator.SetInteger("state", (int)state);
+
+        if (controller.GetPlayerDistance() < attackDistance)
+        {
+            controller.TransactionToState(e_EnemyState.Attack);
+        }
     }
 
     // 대기 상태 기능 동작 처리 (상태 실행)
@@ -26,6 +31,7 @@ public class EnemyIdleState : EnemyAttackableState
             controller.TransactionToState(e_EnemyState.Run);
             return;
         }
+
     }
 
     // 대기 상태 종료(다른상태로 전이) 동작 처리(상태 정리)

@@ -27,7 +27,7 @@ public class StrayBullet : MonoBehaviour
             if (other.tag == "Enemy")
             {
                 GameObject effect = Instantiate(explosionEffectPrefab, transform.position - new Vector3(0f, 1f, 0f) , Quaternion.identity);
-                Effect effect1 = effect.GetComponent<Effect>();
+                PlayerEffect effect1 = effect.GetComponent<PlayerEffect>();
                 effect1.Atk = atk;
             }
 

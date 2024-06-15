@@ -34,7 +34,6 @@ public class EnemyRangedAttackState : EnemyAttackableState
             Rigidbody rb = proj.GetComponent<Rigidbody>();
             enemyBullet.Atk = atk;
             rb.velocity = enemyBullet.CalculateLaunchData(target, bulletPos).initialVelocity;
-
         }
     }
 
@@ -44,7 +43,7 @@ public class EnemyRangedAttackState : EnemyAttackableState
 
         nav.speed = 0f;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     public override void UpdateState()

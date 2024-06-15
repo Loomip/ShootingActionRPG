@@ -19,7 +19,7 @@ public class EnemyKnockdownState : EnemyAttackableState
     {
         isKnockDown = true;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     public override void UpdateState()

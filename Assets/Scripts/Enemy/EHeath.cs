@@ -40,7 +40,7 @@ public class EHeath : Health
     {
         healthBarObject = Instantiate(healthBarPrefab, transform.position + Vector3.up * 2, Quaternion.identity, transform);
         Slider healthBar = healthBarObject.GetComponentInChildren<Slider>();
-        GameManager.instance.RegisterEnemyHealthBar(this, healthBar);
+        //GameManager.instance.RegisterEnemyHealthBar(this, healthBar);
     }
 
     private void Update()

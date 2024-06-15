@@ -10,22 +10,105 @@ public class EnemySkillState : EnemyAttackableState
     // 스킬 프리펩
     [SerializeField] protected GameObject enemySkill;
 
+    // 스킬 발동 위치
+    [SerializeField] protected Transform SkillPos;
+
+    // 공격력
+    [SerializeField] protected int atk;
+
+    // 점프중인지
+    protected bool isJump;
+
+    public bool IsJump { get => isJump; set => isJump = value; }
+
+    // 점프력 
+    [SerializeField] private float jumpSpeed;
+
+    // 중력
+    [SerializeField] private float gravity;
+
     public void SkillAttack()
     {
+        GameObject Effect = Instantiate(enemySkill, SkillPos.position, enemySkill.transform.rotation);
+        EnemyEffect akt = Effect.GetComponent<EnemyEffect>();
+        akt.Atk = atk;
+    }
 
+    public IEnumerator JumpCoroutine()
+    {
+
+        Debug.Log("점프 시작");
+
+        IsJump = true; // 점프 중임을 나타내는 플래그를 설정합니다.
+
+        // 점프 높이와 지속 시간을 설정합니다.
+        float jumpHeight = 1.5f; // 점프 높이
+        float jumpDuration = 1f; // 점프 지속 시간
+
+        // 점프 시작 위치를 현재 에이전트의 위치로 설정합니다.
+        Vector3 startPos = nav.transform.position;
+
+        Vector3 newVelocity = new Vector3(0, nav.velocity.y, 0);
+
+        // 점프 종료 위치를 설정합니다.
+        Vector3 endPos = startPos + newVelocity * jumpDuration;
+
+        // 경과 시간을 초기화합니다.
+        float elapsedTime = 0f;
+
+        // 점프가 지속되는 동안 반복합니다.
+        while (elapsedTime < jumpDuration)
+        {
+            // 경과 시간에 따른 점프의 진행률을 계산합니다.
+            float t = elapsedTime / jumpDuration;
+
+            // 시간에 따라 점프의 높이를 조절하여 자연스러운 점프를 구현합니다.
+            float height = Mathf.Sin(Mathf.PI * t) * jumpHeight;
+
+            // 점프 중인 동안 에이전트의 위치를 보간합니다.
+            nav.transform.position = Vector3.Lerp(startPos, endPos, t) + Vector3.up * height;
+
+            Anima.SetFloat("vertical", elapsedTime);
+
+            // 경과 시간을 업데이트합니다.
+            elapsedTime += Time.deltaTime;
+
+            // 한 프레임을 기다립니다.
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        // 점프가 종료되었음을 나타내는 플래그를 해제합니다.
+        IsJump = false;
+
+        Debug.Log("점프 끝");
+
+        controller.TransactionToState(e_EnemyState.Idle);
     }
 
     public override void EnterState(e_EnemyState state)
     {
+
+        Debug.Log("어택 스테이트 실행중");
+
         nav.isStopped = true;
 
         nav.speed = 0f;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
+
+        if (!IsJump)
+        {
+            StartCoroutine(JumpCoroutine());
+        }
+
     }
 
     public override void UpdateState()
     {
+        if (IsJump == true) return;
+
         // 죽엇으면 리턴
         if (Health.Hp <= 0)
         {
@@ -46,6 +129,8 @@ public class EnemySkillState : EnemyAttackableState
 
     public override void ExitState()
     {
+        nav.isStopped = false;
 
+        nav.speed = 1f;
     }
 }

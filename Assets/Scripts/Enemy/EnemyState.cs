@@ -20,6 +20,7 @@ public abstract class EnemyState : MonoBehaviour
     protected Health health;
 
     public Health Health { get => health; set => health = value; }
+    public Animator Anima { get => animator; set => animator = value; }
 
     protected Collider col;
 
@@ -36,7 +37,7 @@ public abstract class EnemyState : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        Anima = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         controller = GetComponent<EnemyFSMController>();
         Health = GetComponent<Health>();

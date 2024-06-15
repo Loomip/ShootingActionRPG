@@ -9,7 +9,7 @@ public class EnemyWakeUpState : EnemyState
     {
         nav.isStopped = true;
 
-        animator.SetInteger("state", (int)state);
+        Anima.SetInteger("state", (int)state);
     }
 
     // 대기 상태 기능 동작 처리 (상태 실행)
