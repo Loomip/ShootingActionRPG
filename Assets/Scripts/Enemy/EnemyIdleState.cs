@@ -16,6 +16,7 @@ public class EnemyIdleState : EnemyAttackableState
         if (controller.GetPlayerDistance() < attackDistance)
         {
             controller.TransactionToState(e_EnemyState.Attack);
+            return;
         }
     }
 
@@ -23,6 +24,13 @@ public class EnemyIdleState : EnemyAttackableState
     public override void UpdateState()
     {
         // 죽엇으면 리턴
+
+        // 죽엇으면 리턴
+        if (Health.Hp <= 0)
+        {
+            controller.Death();
+            return;
+        }
 
         // 플레이어 인식
         if (controller.GetPlayerDistance() > attackDistance)

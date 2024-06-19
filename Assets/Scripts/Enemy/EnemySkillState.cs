@@ -18,8 +18,10 @@ public class EnemySkillState : EnemyAttackableState
 
     // 점프중인지
     protected bool isJump;
+    private bool isWaiting;
 
     public bool IsJump { get => isJump; set => isJump = value; }
+    public bool IsWaiting { get => isWaiting; set => isWaiting = value; }
 
     // 점프력 
     [SerializeField] private float jumpSpeed;
@@ -36,9 +38,6 @@ public class EnemySkillState : EnemyAttackableState
 
     public IEnumerator JumpCoroutine()
     {
-
-        Debug.Log("점프 시작");
-
         IsJump = true; // 점프 중임을 나타내는 플래그를 설정합니다.
 
         // 점프 높이와 지속 시간을 설정합니다.
@@ -76,21 +75,11 @@ public class EnemySkillState : EnemyAttackableState
             // 한 프레임을 기다립니다.
             yield return null;
         }
-
-        yield return new WaitForSeconds(2f);
-
-        // 점프가 종료되었음을 나타내는 플래그를 해제합니다.
-        IsJump = false;
-
-        Debug.Log("점프 끝");
-
-        controller.TransactionToState(e_EnemyState.Idle);
     }
 
     public override void EnterState(e_EnemyState state)
     {
-
-        Debug.Log("어택 스테이트 실행중");
+        if (IsWaiting) return;
 
         nav.isStopped = true;
 
@@ -102,12 +91,11 @@ public class EnemySkillState : EnemyAttackableState
         {
             StartCoroutine(JumpCoroutine());
         }
-
     }
 
     public override void UpdateState()
     {
-        if (IsJump == true) return;
+        if (IsJump && IsWaiting) return;
 
         // 죽엇으면 리턴
         if (Health.Hp <= 0)
