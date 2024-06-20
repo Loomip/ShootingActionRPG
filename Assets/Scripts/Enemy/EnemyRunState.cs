@@ -27,7 +27,7 @@ public class EnemyRunState : EnemyAttackableState
         }
 
         // 플레이어가 공격 가능 거리안에 들어왔다면
-        if (controller.GetPlayerDistance() <= attackDistance)
+        if (controller.GetPlayerDistance() < attackDistance)
         {
             // 공격 상태로 전환
             controller.TransactionToState(e_EnemyState.Attack);

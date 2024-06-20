@@ -16,18 +16,16 @@ public class EnemySkillState : EnemyAttackableState
     // 공격력
     [SerializeField] protected int atk;
 
-    // 점프중인지
-    protected bool isJump;
-    private bool isWaiting;
-
-    public bool IsJump { get => isJump; set => isJump = value; }
-    public bool IsWaiting { get => isWaiting; set => isWaiting = value; }
-
     // 점프력 
     [SerializeField] private float jumpSpeed;
 
     // 중력
     [SerializeField] private float gravity;
+
+    // 점프중인지
+    [SerializeField] protected bool isJump;
+
+    public bool IsJump { get => isJump; set => isJump = value; }
 
     public void SkillAttack()
     {
@@ -38,8 +36,6 @@ public class EnemySkillState : EnemyAttackableState
 
     public IEnumerator JumpCoroutine()
     {
-        IsJump = true; // 점프 중임을 나타내는 플래그를 설정합니다.
-
         // 점프 높이와 지속 시간을 설정합니다.
         float jumpHeight = 1.5f; // 점프 높이
         float jumpDuration = 1f; // 점프 지속 시간
@@ -79,23 +75,21 @@ public class EnemySkillState : EnemyAttackableState
 
     public override void EnterState(e_EnemyState state)
     {
-        if (IsWaiting) return;
-
-        nav.isStopped = true;
-
-        nav.speed = 0f;
-
-        Anima.SetInteger("state", (int)state);
-
         if (!IsJump)
         {
-            StartCoroutine(JumpCoroutine());
+            nav.isStopped = true;
+
+            nav.speed = 0f;
+
+            Anima.SetInteger("state", (int)state);
+
+            StartCoroutine("JumpCoroutine");
         }
     }
 
     public override void UpdateState()
     {
-        if (IsJump && IsWaiting) return;
+        if (IsJump) return;
 
         // 죽엇으면 리턴
         if (Health.Hp <= 0)
