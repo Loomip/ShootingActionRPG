@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 // Photon 관련 using 처리
 using Photon.Pun;
@@ -16,7 +17,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
     [SerializeField] private string MultiMode;
 
     // 접속 관련 로드 텍스트
-    [SerializeField] private Text logMessageText;
+    [SerializeField] private TextMeshProUGUI logMessageText;
 
     // 접속 버튼
     [SerializeField] private Button startButton;
@@ -92,7 +93,9 @@ public class TitleManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // 포톤 씬 전환 API를 이용해 씬을 전환함
-        PhotonNetwork.LoadLevel("GameScene");
+
+        // 멀티 플레이 로딩 씬 시작
+        PhotonLoadSceneManager.PhotonLoadScene(MultiMode);
     }
 
     // 랜덤 접속이 실패했을 경우 현재 유저가 랜덤한 방을 생성함
@@ -111,8 +114,6 @@ public class TitleManager : MonoBehaviourPunCallbacks
     {
         // 포톤 램덤 방 접속 기능 실행
         JoinRandomRoom();
-
-        LoadSceneManager.LoadScene(MultiMode);
     }
 
     public void OnExitButtonClick()

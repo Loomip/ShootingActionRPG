@@ -30,6 +30,11 @@ public class StrayBullet : MonoBehaviour
                 PlayerEffect effect1 = effect.GetComponent<PlayerEffect>();
                 effect1.Atk = atk;
             }
+            else if(other.tag == "Player")
+            {
+                PHealth pHealth = other.GetComponent<PHealth>();
+                pHealth.Knokdown();
+            }
 
             Destroy(gameObject);
         }

@@ -13,6 +13,17 @@ public enum e_EnemyState
     Die         // авю╫ ╩Себ
 }
 
+public enum e_PlayerState
+{
+    Idle,
+    Run,
+    Attack,
+    Hit,
+    Knockdown,
+    WakeUp,
+    Die
+}
+
 public enum e_MenuType
 {
     None,

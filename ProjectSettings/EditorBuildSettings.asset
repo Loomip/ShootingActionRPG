@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PVEScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/PhotonLoadingScene.unity
+    guid: 92e483b6f76bc0b4e8e40f6f9fccf971
+  - enabled: 1
     path: Assets/Scenes/PVPScene.unity
     guid: 69aa489676c45db44b1a4ea919ea58a4
   m_configObjects: {}
